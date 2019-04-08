@@ -1,0 +1,69 @@
+% !TeX encoding = utf8
+% !TeX spellcheck = pl_PL
+
+\documentclass[11pt, a4paper, twoside]{article}
+\usepackage{graphicx, color, rotating} 
+\usepackage[MeX, plmath]{polski} %MeX - tryb pełnej polonizacji
+\usepackage[OT4]{fontenc} % T1 - skład fontami EC; OT4 - układ fontów PL
+\usepackage{ae,aecompl}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern} %czcionka latin modern; jednolita dla tekstu i wzorów;
+\usepackage{a4wide}
+\usepackage{amsmath}
+\usepackage{amssymb, latexsym}
+\usepackage{array}
+\usepackage{bm}
+\usepackage[shortlabels]{enumitem}
+\usepackage[font=footnotesize]{caption} %rozmiar czcionki podpisów pod rysunkami
+\usepackage{float}
+\usepackage{subfig} %obrazki obok siebie
+\usepackage[hidelinks]{hyperref}
+\usepackage{indentfirst}
+\usepackage{geometry}
+\geometry{left=25mm, right=25mm, top=25mm, bottom=25mm}
+
+\usepackage[final]{pdfpages}
+\usepackage{pdflscape}
+\prefixing %notacja prefiksowa w pakiecie 'polski'
+\frenchspacing
+\linespread{1.1}
+\renewcommand{\figurename}{Rys.}
+\renewcommand*\thesubsection{\arabic{subsection}} % zmiana numeracji podsekcji 0.X -> X
+
+\begin{document}
+
+\begin{center} 
+	{\Large Wydział Elektroniki i Technik Informacyjnych}
+	\vskip0.2cm
+	{\LARGE \textbf{Sieci i sterowanie systemami (SST): Smart City --~raport z etapu I projektu  } } 
+	\vskip0.3cm
+	{\Large Szymon Jarocki, Daniel Giełdowski, Maciej Kłos, Michał Okoński}
+	\vskip0.8cm
+\end{center} 
+
+
+Celem etapu pierwszego projektu była analiza zagadnienia i przygotowanie środowiska roboczego. Kwestie te przedstawiono pokrótce w sekcjach nr \ref{zag} i~\ref{rob}.
+
+\subsection{Analiza zagadnienia}
+\label{zag}
+Zadanie polega na~zaprojektowaniu oraz zaimplementowaniu symulatora grupy autonomicznych samochodów (bez kierowcy), które mają poruszać się po ulicach pewnego miasta i~docierać pod zadane adresy. Wybrany został wariant sterowania autonomicznego, w~którym pojazdy same decydują o~swojej trasie, mając do~dyspozycji odpowiednie czujniki umożliwiające unikanie kolizji. Przyjmujemy, że po~drogach poruszają się jedynie rozważane pojazdy. Głównym celem sterowania --- oprócz jazdy bezkolizyjnej --- jest to, aby samochody osiągały swoje punkty docelowe jak najszybciej.
+
+Przy realizacji projektu wykorzystane zostaną środowiska V-REP i~MATLAB. Pierwsze z~nich posłuży do~symulacji poruszania się samochodów, natomiast drugie z~wymienionych będzie wykorzystane do~implementacji algorytmów wyznaczania tras dla pojazdów. Prace, które są do~wykonania można określić w~następującym porządku:
+\begin{enumerate}[1)]
+	\item implementacja w symulatorze planu dzielnicy miasta przy zapewnieniu wystarczającego stopnia złożoności symulowanego ,,świata'',
+	\item dobór algorytmów wyznaczania tras dla poruszających się pojazdów w~kontekście posiadanych przez nie czujników i~w~związku z~minimalizacją czasu osiągania punktów docelowych,
+	\item implementacja wybranych algorytmów i~konsolidacja oprogramowania,
+	\item testowanie poprawności działania symulatora i ocena optymalności rozwiązania.
+\end{enumerate}
+Co ważne, powyższa kolejność nie jest sekwencją, w~której kolejne etapy realizowane są dokładnie raz w~przedstawionej kolejności. Należy raczej zakładać postępowanie iteracyjne, wiążące się z~powrotem do~wcześniej wykonywanych zadań w~celu dokonania potrzebnych poprawek, które mogą przyczynić się do~uzyskania lepszego rozwiązania.
+
+\subsection{Przygotowanie środowiska roboczego}
+\label{rob}
+Przygotowanie środowiska roboczego polegało przede wszystkim na~instalacji i~zapoznaniu się z~programem V-REP. Z~kolei pakiet MATLAB był już do~naszej dyspozycji z~racji wykonywania z~jego użyciem innych projektów. W~dalszej perspektywie konieczne będzie utrzymanie tych środowisk,  polegające m.in. na~dokonywaniu ewentualnych aktualizacji czy też konfiguracji przydatnych funkcjonalności.
+
+Prace przygotowawcze polegały także na~sprawdzeniu możliwości wspólnego zastosowania obu programów oraz na~przygotowaniu wstępnego planu dzielnicy miasta. Okazało się, że należy utworzyć własny plan z~racji trudności w~odnalezieniu istniejących już rozwiązań (o~ile takowe są), które można by odpowiednio zaadaptować na~potrzeby niniejszego projektu.
+
+(..) --> o utworzonym planie dzielnicy; o uruchamianiu symulacji; o pojazdach; o użyciu plików Matlaba, ... --> Czy coś jeszcze?
+
+\end{document}
+
