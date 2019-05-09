@@ -1,20 +1,20 @@
-\newpage
+%\newpage
 \section{Komunikacja z pakietem MATLAB}
 
 Do komunikacji środowiska symulacyjnego z~pakietem MATLAB wykorzystane zostało API dostarczone wraz z programem V-REP. Główną jego częścią jest klasa pakietu MATLAB o~nazwie \textit{remApi.m}. Realizuje ona podstawowe zagadnienia związane z komunikacją takie jak otwieranie lub zamykanie połączenia z~symulacją, czy też przesyłanie informacji o~obiektach znajdujących się w środowisku symulacyjnym. Na jej podstawie zostały opracowane klasy z~metodami dostosowane do potrzeb tworzonego systemu. Informacje przesyłane ze środowiska symulacyjnego do algorytmu sterującego zostały wymienione poniżej:
 \begin{itemize}
-	\item Plansza:
+	\item plansza:
 	\begin{itemize}
-		\item rozmiar oraz położenie dróg
-		\item położenie, orientacja oraz rodzaj znaków drogowych
-		\item \textit{(opcjonalnie) informacje o stanie świateł drogowych}
+		\item rozmiar oraz położenie dróg,
+		\item położenie, orientacja oraz rodzaj znaków drogowych,
+		\item \textit{(opcjonalnie) informacje o stanie świateł drogowych},
 	\end{itemize}
-	\item Samochody:
+	\item samochody:
 	\begin{itemize}
-		\item położenie, prędkość oraz orientacja
-		\item orientacja kół
-		\item dane z 14 czujników odległości
-		\item dane z kamery
+		\item położenie, prędkość oraz orientacja,
+		\item orientacja kół,
+		\item dane z 14 czujników odległości,
+		\item dane z kamery.
 	\end{itemize}
 \end{itemize}
 Na podstawie tych danych algorytm wylicza sygnały sterujące każdego z~samochodów. Dane te są następnie wysyłane i~zastosowane w środowisku symulacyjnym.
