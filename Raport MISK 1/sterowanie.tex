@@ -7,9 +7,9 @@ Algorytm sterowania pojazdem w sieci miejskiej składa się w ogólności z 3 cz
 	\item 
 	Wybór \textit{trasy} (route planning) -- polega na wyborze kolejnych dróg, skrzyżowań etc. po~których będzie poruszał się pojazd przemieszczający się z punktu A do B. Jest to równoznaczne z~wyborem kolejnych wierzchołków i krawędzi w grafie. Np. autostrada A2 jest \textit{trasą}, którą można przejechać z Warszawy do Poznania. 
 	\item 
-	Wybór \textit{trajektorii} (path planning) - polega na wyborze pewnej krzywej, po której pojazd ma się poruszać w ramach \textit{trasy}. Np. jest to \textit{krzywa}, po której porusza się samochód skręcający na skrzyżowaniu.
+	Wybór \textit{trajektorii} (path planning) -- polega na wyborze pewnej krzywej, po której pojazd ma się poruszać w ramach \textit{trasy}. Np. jest to \textit{krzywa}, po której porusza się samochód skręcający na skrzyżowaniu.
 	\item 
-	Wybór \textit{sterowań} pojazdu - polega na zadaniu pojazdowi skrętu kół i prędkości tak żeby w~odpowiedni sposób poruszał się po trajektorii i reagował na zmieniające się otoczenie (np. nagłe hamowanie w momencie wykrycia przeszkody).
+	Wybór \textit{sterowań} pojazdu -- polega na zadaniu pojazdowi skrętu kół i prędkości tak żeby w~odpowiedni sposób poruszał się po trajektorii i reagował na zmieniające się otoczenie (np. nagłe hamowanie w momencie wykrycia przeszkody).
 \end{itemize}
 
 Kierując się powyższym podziałem zaprojektowano strategię sterowania mającą dwa główne cele: zapewnienie bezpiecznego i bezkolizyjnego przejazdu, a także minimalizację czasów poszczególnych przejazdów. W celu uproszczenia strategi (ale bez straty ogólności) przyjęto następujące założenia:
