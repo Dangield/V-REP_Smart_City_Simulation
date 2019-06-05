@@ -89,8 +89,8 @@ classdef Car < handle
 			
 			desiredAngle = desiredAngle*pi/180;
 			
-			steeringAngleLeft  = atan(obj.l/(-obj.d+obj.l/tan(desiredAngle)));
-			steeringAngleRight = atan(obj.l/(obj.d+obj.l/tan(desiredAngle)));
+			steeringAngleRight  = atan(obj.l/(-obj.d+obj.l/tan(desiredAngle)));
+			steeringAngleLeft = atan(obj.l/(obj.d+obj.l/tan(desiredAngle)));
 		
 			obj.vrepComm.vrep.simxSetJointTargetPosition(obj.vrepComm.clientID, obj.steeringLeftHandle,  steeringAngleLeft,  obj.vrepComm.vrep.simx_opmode_streaming);
 			obj.vrepComm.vrep.simxSetJointTargetPosition(obj.vrepComm.clientID, obj.steeringRightHandle, steeringAngleRight, obj.vrepComm.vrep.simx_opmode_streaming);
