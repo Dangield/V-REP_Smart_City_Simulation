@@ -72,6 +72,16 @@ classdef VREPCommunication < handle
 				position = position(1:2);
 			end
 		end
+		
+		function size = getSize(obj, handle, mode)
+			[~, minx] = obj.vrep.simxGetObjectFloatParameter(obj.clientID, handle, 21, mode);
+			[~, maxx] = obj.vrep.simxGetObjectFloatParameter(obj.clientID, handle, 24, mode);
+			[~, miny] = obj.vrep.simxGetObjectFloatParameter(obj.clientID, handle, 22, mode);
+			[~, maxy] = obj.vrep.simxGetObjectFloatParameter(obj.clientID, handle, 25, mode);
+			
+			size = [maxx - minx, maxy - miny];
+		end
+		
 	end
 end
 
