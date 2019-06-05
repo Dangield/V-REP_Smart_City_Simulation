@@ -82,6 +82,11 @@ classdef VREPCommunication < handle
 			size = [maxx - minx, maxy - miny];
 		end
 		
+		function orientation = getOrientation(obj, handle, mode)
+			[returnCode, orientation] = obj.vrep.simxGetObjectOrientation(obj.clientID, handle, -1, mode);
+			orientation = orientation(3)*180/pi;
+		end
+		
 	end
 end
 
