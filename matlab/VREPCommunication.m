@@ -61,7 +61,7 @@ classdef VREPCommunication < handle
 					end
 					childIndex = childIndex + 1;
 					childHandles = [childHandles, childHandle];
-					childNames   = [childNames, string(stringData{childHandle+1})];
+					childNames   = [childNames, string(stringData{find(handles == childHandle)})];
 				end
 			end
 		end
