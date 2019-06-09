@@ -8,6 +8,7 @@ classdef Car < handle
 		position = zeros(1, 2);
 		orientation = 0;
 		wheelSpeed = 0;
+		velocity = zeros(1, 2);
 		name;
 		updateMode;
 		
@@ -55,12 +56,17 @@ classdef Car < handle
 			
 			obj.updateLasers();
 			obj.updatePosition();
-            obj.updateOrientation();
+			obj.updateOrientation();
+			obj.updateVelocity();
 			obj.updateMode = vrepComm.vrep.simx_opmode_buffer;
 		end
 		
 		function updatePosition(obj)
 			obj.position = obj.vrepComm.getPosition(obj.handle, obj.updateMode);
+		end
+		
+		function updateVelocity(obj)
+			obj.velocity = obj.vrepComm.getVelocity(obj.handle, obj.updateMode);
         end
         
         function updateOrientation(obj)

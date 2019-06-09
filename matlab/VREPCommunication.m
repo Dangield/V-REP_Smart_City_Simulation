@@ -87,6 +87,11 @@ classdef VREPCommunication < handle
 			orientation = orientation(3)*180/pi;
 		end
 		
+		function velocity = getVelocity(obj, handle, mode)
+			[returnCode, linearVelocity, angularVelocity] = obj.vrep.simxGetObjectVelocity(obj.clientID, handle, mode);
+			velocity = linearVelocity(1:2);
+		end
+		
 	end
 end
 
