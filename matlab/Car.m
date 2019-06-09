@@ -6,7 +6,8 @@ classdef Car < handle
 		laserDistances = zeros(1, 14);
 		laserNames = zeros(1, 14);
 		position = zeros(1, 2);
-        orientation = 0;
+		orientation = 0;
+		wheelSpeed = 0;
 		name;
 		updateMode;
 		
@@ -84,6 +85,7 @@ classdef Car < handle
 		function setSpeed(obj, desiredSpeed)
 			obj.vrepComm.vrep.simxSetJointTargetVelocity(obj.vrepComm.clientID, obj.motorLeftHandle,  desiredSpeed, obj.vrepComm.vrep.simx_opmode_streaming);
 			obj.vrepComm.vrep.simxSetJointTargetVelocity(obj.vrepComm.clientID, obj.motorRightHandle, desiredSpeed, obj.vrepComm.vrep.simx_opmode_streaming);
+			obj.wheelSpeed = desiredSpeed;
 		end
 		
 		function setAngle(obj, desiredAngle)
