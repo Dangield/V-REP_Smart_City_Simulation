@@ -86,6 +86,7 @@ classdef Car < handle
 			obj.updateLasers();
 			obj.updatePosition();
             obj.updateOrientation();
+            obj.updateVelocity();
 		end
 		
 		function setSpeed(obj, desiredSpeed)
