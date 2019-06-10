@@ -110,7 +110,11 @@ classdef Car < handle
 		
 			obj.vrepComm.vrep.simxSetJointTargetPosition(obj.vrepComm.clientID, obj.steeringLeftHandle,  steeringAngleLeft,  obj.vrepComm.vrep.simx_opmode_streaming);
 			obj.vrepComm.vrep.simxSetJointTargetPosition(obj.vrepComm.clientID, obj.steeringRightHandle, steeringAngleRight, obj.vrepComm.vrep.simx_opmode_streaming);
-		end
+        end
+        
+        function pos = getPosition(obj)
+            pos = [obj.position(1:2), obj.orientation - 90];
+        end
 	end
 end
 
