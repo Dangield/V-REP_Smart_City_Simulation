@@ -13,8 +13,9 @@ classdef VREPCommunication < handle
 		end
 		
 		function delete(obj)
-            obj.vrep.delete();
-        end
+			obj.stop();
+			obj.vrep.delete();
+		end
 		
 		function start(obj)
 			obj.clientID = obj.vrep.simxStart('127.0.0.1', 19999, true, true, 5000, 5);
@@ -91,7 +92,7 @@ classdef VREPCommunication < handle
 			[returnCode, linearVelocity, angularVelocity] = obj.vrep.simxGetObjectVelocity(obj.clientID, handle, mode);
 			velocity = linearVelocity(1:2);
 		end
-		
+
 	end
 end
 

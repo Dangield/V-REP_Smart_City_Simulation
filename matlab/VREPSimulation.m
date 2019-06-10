@@ -16,6 +16,7 @@ classdef VREPSimulation < handle
 	
 	methods
 		function obj = VREPSimulation()
+			a = timerfindall; delete(a);
 			obj.vrepComm = VREPCommunication();
 			obj.trafficLightTimer = timer;
 			obj.trafficLightTimer.Period = 30;
@@ -29,12 +30,6 @@ classdef VREPSimulation < handle
 		
 		function stopCommunication(obj)
 			obj.vrepComm.stop();
-		end
-		
-		function delete(obj)
-            obj.vrepComm.delete();
-			stop(obj.trafficLightTimer);
-			delete(obj.trafficLightTimer);
 		end
 		
 		function addCar(obj, name, handle)
@@ -114,8 +109,12 @@ classdef VREPSimulation < handle
 			obj.initialised = true;
 			start(obj.trafficLightTimer)
 		end
+		
+		function delete(obj)
+			obj.vrepComm.delete();
+			stop(obj.trafficLightTimer);
+			delete(obj.trafficLightTimer);
+		end
 	end
-	
-	
 end
 
