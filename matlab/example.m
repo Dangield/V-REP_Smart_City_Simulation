@@ -1,4 +1,6 @@
 clc
+clear all
+close all
 
 if ~exist('vrepSim', 'var')
 	vrepSim = VREPSimulation();
