@@ -4,16 +4,23 @@ classdef VREPSimulation < handle
 		cars = {};
 		roads = {}
 		roadSigns = {};
+		trafficLights = {};
 		carIterator = 0;
 		CAR_NAME = "smartCar#";
 		LANE_NAME = "Lane";
 		SIGN_NAME = "RoadSigns";
+		TRAFFIC_LIGHT_NAME = "S#";
 		initialised = false;
+		trafficLightTimer;
 	end
 	
 	methods
 		function obj = VREPSimulation()
 			obj.vrepComm = VREPCommunication();
+			obj.trafficLightTimer = timer;
+			obj.trafficLightTimer.Period = 30;
+			obj.trafficLightTimer.ExecutionMode = 'fixedRate';
+			obj.trafficLightTimer.TimerFcn = @(~,~)obj.trafficLightTimerFunction;
 		end
 		
 		function startCommunication(obj)
@@ -26,6 +33,8 @@ classdef VREPSimulation < handle
 		
 		function delete(obj)
             obj.vrepComm.delete();
+			stop(obj.trafficLightTimer);
+			delete(obj.trafficLightTimer);
 		end
 		
 		function addCar(obj, name, handle)
@@ -40,6 +49,21 @@ classdef VREPSimulation < handle
 			end
 		end
 		
+		function updateLights(obj)
+			for i = 1:size(obj.trafficLights, 2)
+				trafficLight = obj.trafficLights{i};
+				trafficLight.update();
+			end
+		end
+		
+		function trafficLightTimerFunction(obj)
+			obj.updateLights();
+			t = timer;
+			t.StartDelay = 2;
+			t.TimerFcn = @(~,~)obj.updateLights;
+			start(t)
+		end
+		
 		function getRoads(obj)
 			[laneHandles, laneNames] = obj.vrepComm.getHandles(obj.LANE_NAME);
 			
@@ -48,7 +72,6 @@ classdef VREPSimulation < handle
 				boxSize     = obj.vrepComm.getSize(laneHandles(i), obj.vrepComm.vrep.simx_opmode_blocking);
 				obj.roads{i} = Road(position, boxSize);
 			end
-			
 		end
 		
 		function getRoadSigns(obj)
@@ -67,7 +90,16 @@ classdef VREPSimulation < handle
 				end
 				obj.roadSigns{i} = RoadSign(position, type, round(orientation));
 			end
+		end
+		
+		function getTrafficLights(obj)
+			[lightHandles, lightNames] = obj.vrepComm.getHandles(obj.TRAFFIC_LIGHT_NAME);
 			
+			for i = 1:size(lightHandles, 2)
+				position    = obj.vrepComm.getPosition(lightHandles(i), obj.vrepComm.vrep.simx_opmode_blocking);
+				orientation = obj.vrepComm.getOrientation(lightHandles(i), obj.vrepComm.vrep.simx_opmode_blocking);
+				obj.trafficLights{i} = TrafficLight(obj.vrepComm, lightHandles(i), lightNames(i), position, orientation);
+			end
 		end
 		
 		function init(obj)
@@ -78,8 +110,12 @@ classdef VREPSimulation < handle
 			pause(1);
 			obj.getRoads();
 			obj.getRoadSigns();
+			obj.getTrafficLights();
 			obj.initialised = true;
+			start(obj.trafficLightTimer)
 		end
 	end
+	
+	
 end
 

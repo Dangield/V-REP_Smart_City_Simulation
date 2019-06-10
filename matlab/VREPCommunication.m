@@ -38,7 +38,7 @@ classdef VREPCommunication < handle
 					retNames   = [];
 					handlesNames = stringData(:, 1);
 					for i = 1:size(handlesNames, 1)
-						if contains(handlesNames{i}, name, 'IgnoreCase', true)
+						if contains(handlesNames{i}, name, 'IgnoreCase', false)
 							retHandles = [retHandles, handles(i)];
 							retNames   = [retNames, string(handlesNames{i})];
 						end
