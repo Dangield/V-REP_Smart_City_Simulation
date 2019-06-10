@@ -146,8 +146,9 @@ classdef Map < handle
                 pos1 = obj.intersectionsList(intersection1, 1:2);
                 pos2 = obj.intersectionsList(intersection2, 1:2);
                 %Check if car's position on roads
-                if  obj.point_to_line([pos 0], [pos1 0], [pos2 0]) < 1
+                if obj.onRoad(pos, pos1, pos2)
                     pathNum = obj.pathList(k,3);
+                    break;
                 end
             end    
         end
@@ -182,8 +183,29 @@ classdef Map < handle
         function bool = onRoad(obj, pos, pos1, pos2)
             %Default value
             bool = 0;
+            x1 = pos1(1); y1 = pos1(2);
+            x2 = pos2(1); y2 = pos2(2);          
+            
             %Pos on road condition
-            %TODO
+            if abs(x1-x2) < 0.1 %road vertical
+                if y1 > y2
+                    xv = [x1-1 x1+1 x2+1 x2-1];
+                    yv = [y1 y1 y2 y2];
+                else
+                    xv = [x2-1 x2+1 x1+1 x1-1];
+                    yv = [y2 y2 y1 y1];
+                end
+            else
+                if x1 > x2
+                    xv = [x1 x1 x2 x2];
+                    yv = [y1-1 y1+1 y2+1 y2-1];
+                else
+                    xv = [x2 x2 x1 x1];
+                    yv = [y2-1 y2+1 y1+1 y1-1];                    
+                end                
+            end
+            [in, on] = inpolygon(pos(1),pos(2),xv,yv);            
+            bool = in | on;
         end
         
         %Calculate distane between point and line
