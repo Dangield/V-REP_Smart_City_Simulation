@@ -101,7 +101,7 @@ classdef Path < handle
         function buildTrajectory(obj)
             %Parameters
             tempDirections = ones(length(obj.transitionPoses),1);
-            numSmoothPoses = 200;
+            numSmoothPoses = 50;
             
             %SmoothPathSpline
             [obj.refPoses, obj.directions, obj.cumLength] = smoothPathSpline(obj.transitionPoses,tempDirections,numSmoothPoses);

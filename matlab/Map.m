@@ -141,7 +141,7 @@ classdef Map < handle
             %Remove angle
             pos = pos(1:2);            
             %Default return value
-            allPath = [-1];
+            allPath = [1];
             %Iterate over all paths
             iter = 1;
             for k = 1:obj.numPaths
@@ -259,15 +259,30 @@ classdef Map < handle
         end    
         
         %Send stop or start command to car
-        function perm = getPermission(obj, carNum)
+        function permission = getPermission(obj, carNum, pos)
+            %Path priority permission
             currIntersection = obj.carPathIntersectionList(carNum,3);
             currPriority = obj.carPathIntersectionList(carNum,2);
             tempCarPathIntersectionList = obj.carPathIntersectionList(obj.carPathIntersectionList(:,3) == currIntersection,:);
-            if max(tempCarPathIntersectionList(:,2)) == currPriority            
-                perm = 1;
+            
+            %Car close to intersection permission
+            posIntersectionPos = obj.intersectionsList(currIntersection,:);
+            distCarIntersection = pdist([pos(1:2); posIntersectionPos(1:2)],'euclidean');
+            DISTANCE_THRESHOLD = 2;
+            if distCarIntersection < DISTANCE_THRESHOLD
+                permDistance = 0;
             else
-                perm = 0;
+                permDistance = 1;
+            end            
+            
+            %Car high priority path permission permission
+            if max(tempCarPathIntersectionList(:,2)) == currPriority            
+                permPriority = 1;
+            else
+                permPriority = 0;
             end
+            
+            permission = permDistance | permPriority;
         end
     end
 end
