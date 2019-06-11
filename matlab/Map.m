@@ -256,7 +256,12 @@ classdef Map < handle
                     obj.carPathIntersectionList(k,:) = [k, currPath, currIntersection];
                 end
             end
-        end    
+        end   
+        
+        %Build car-path-intersection object
+        function deleteAgents(obj, carNum)
+            obj.carPathIntersectionList(obj.carPathIntersectionList(:,1) == carNum,:) = [];
+        end 
         
         %Send stop or start command to car
         function permission = getPermission(obj, carNum, pos)
@@ -283,6 +288,22 @@ classdef Map < handle
             end
             
             permission = permDistance | permPriority;
+        end
+        
+        %Close to intersection
+        function intersectionFlag = close2Intersection(obj, carNum, pos)
+            %Path priority permission
+            currIntersection = obj.carPathIntersectionList(carNum,3);
+            
+            %Car close to intersection permission
+            posIntersectionPos = obj.intersectionsList(currIntersection,:);
+            distCarIntersection = pdist([pos(1:2); posIntersectionPos(1:2)],'euclidean');
+            DISTANCE_THRESHOLD = 2.5;
+            if distCarIntersection < DISTANCE_THRESHOLD
+                intersectionFlag = 1;
+            else
+                intersectionFlag = 0;
+            end 
         end
     end
 end
