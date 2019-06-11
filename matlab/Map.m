@@ -4,11 +4,15 @@ classdef Map < handle
         roadIntersectionsMat = {}
         intersectionsList = [];
         intersectionsPathMat = [];
-        intersectionsPathGraph;
+        intersectionsPathMatIndex = []
+        intersectionsPathGraph = [];
         pathList = [];
         numRoads = 0;
         numPaths = 0;
         numIntersections = 0;
+        
+        %Car-Path-Intersection list
+        carPathIntersectionList = [];
     end
     
     methods
@@ -57,7 +61,8 @@ classdef Map < handle
                     index2 = tempM(l, 3);        
                     obj.intersectionsPathMat(index1, index2) = Road_len;
                     obj.intersectionsPathMat(index2, index1) = Road_len;
-
+                    obj.intersectionsPathMatIndex(index1, index2) = iter;
+                    obj.intersectionsPathMatIndex(index2, index1) = iter;
                     %Build list
                     obj.pathList(iter,:) = [index1, index2, iter]; iter = iter + 1;
                     
@@ -132,12 +137,13 @@ classdef Map < handle
         end
         
         %Find path index for given position
-        function pathNum = findPath(obj, pos)
+        function [firstPath, allPath] = findPath(obj, pos)
             %Remove angle
             pos = pos(1:2);            
             %Default return value
-            pathNum = -1;
+            allPath = [-1];
             %Iterate over all paths
+            iter = 1;
             for k = 1:obj.numPaths
                 %Get road's crosses
                 intersection1 = obj.pathList(k,1);
@@ -147,10 +153,10 @@ classdef Map < handle
                 pos2 = obj.intersectionsList(intersection2, 1:2);
                 %Check if car's position on roads
                 if obj.onRoad(pos, pos1, pos2)
-                    pathNum = obj.pathList(k,3);
-                    break;
+                    allPath(iter) = obj.pathList(k,3); iter = iter + 1;
                 end
-            end    
+            end
+            firstPath = allPath(1);
         end
         
         %Find closest intersection index for given position
@@ -159,7 +165,7 @@ classdef Map < handle
             posA = pos(3);
             pos = pos(1:2);
             %Get index of path
-            pathNum = obj.findPath(pos);
+            [pathNum, allPath] = obj.findPath(pos);
             %Get coord
             path = obj.pathList(pathNum,:);
             %Temporary intersection pair
@@ -179,7 +185,7 @@ classdef Map < handle
             otherIntersectionNum = tempInterectionPair(mod(Index,2)+1, 3);
         end
        
-        %Point in Rectangle //TODO
+        %Point in Rectangle
         function bool = onRoad(obj, pos, pos1, pos2)
             %Default value
             bool = 0;
@@ -236,7 +242,20 @@ classdef Map < handle
             [intersection1, other] = obj.findIntersection(pos);
             intersectionIndex = shortestpath(obj.intersectionsPathGraph,intersection1, intersection2);
             intersectionList = obj.intersectionsList(intersectionIndex,:);            
-        end             
+        end       
         
+        %Build car-path-intersection object
+        function buildAgents(obj, pos)
+            [row, col] = size(pos);
+            for k = 1:row
+                currPos = pos(k,:);
+                [currPath, allPath] = obj.findPath(currPos);
+                currIntersection = obj.findIntersection(currPos);
+                %Don't update if car on 2 paths
+                if length(allPath) == 1
+                    obj.carPathIntersectionList(k,:) = [k, currPath, currIntersection];
+                end
+            end
+        end       
     end
 end
