@@ -256,6 +256,18 @@ classdef Map < handle
                     obj.carPathIntersectionList(k,:) = [k, currPath, currIntersection];
                 end
             end
-        end       
+        end    
+        
+        %Send stop or start command to car
+        function perm = getPermission(obj, carNum)
+            currIntersection = obj.carPathIntersectionList(carNum,3);
+            currPriority = obj.carPathIntersectionList(carNum,2);
+            tempCarPathIntersectionList = obj.carPathIntersectionList(obj.carPathIntersectionList(:,3) == currIntersection,:);
+            if max(tempCarPathIntersectionList(:,2)) == currPriority            
+                perm = 1;
+            else
+                perm = 0;
+            end
+        end
     end
 end
