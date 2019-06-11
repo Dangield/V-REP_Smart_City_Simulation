@@ -92,6 +92,14 @@ classdef VREPCommunication < handle
 			[returnCode, linearVelocity, angularVelocity] = obj.vrep.simxGetObjectVelocity(obj.clientID, handle, mode);
 			velocity = linearVelocity(1:2);
 		end
+		
+		function removeModel(obj, handle)
+			obj.vrep.simxRemoveModel(obj.clientID, handle, obj.vrep.simx_opmode_blocking);
+		end
+		
+		function removeObject(obj, handle)
+			obj.vrep.simxRemoveObject(obj.clientID, handle, obj.vrep.simx_opmode_blocking);
+		end
 
 	end
 end

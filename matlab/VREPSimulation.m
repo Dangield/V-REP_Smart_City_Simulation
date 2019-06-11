@@ -110,6 +110,14 @@ classdef VREPSimulation < handle
 			start(obj.trafficLightTimer)
 		end
 		
+		function removeCar(obj, index)
+			car = obj.cars{index};
+			for laserHandle = car.laserHandles
+				obj.vrepComm.removeObject(laserHandle);
+			end
+			obj.vrepComm.removeModel(car.handle);
+		end
+		
 		function delete(obj)
 			obj.vrepComm.delete();
 			stop(obj.trafficLightTimer);
