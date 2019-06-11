@@ -138,14 +138,19 @@ Założyliśmy, że ulice przecinają się pod kątem prostym zgodnie z~szachown
 \input{sterowanie.tex}
 
 
-\chapter{Etap drugi}
-\section{Omówienie wyników testów}
-\label{sec:Wyniki}
+\chapter{Etap drugi} 
+\section{Omówienie wyników testów} \vspace{-0.2cm}
+Celem ostatniego etapu była ocena skuteczności działania utworzonego oprogramowania. Zaprojektowane algorytmy sterowania przetestowaliśmy na 3 przykładowych scenariuszach ruchu uszeregowanych pod kątem stopnia trudności. \vspace{-0.2cm}
 
-\section{Podsumowanie i ocena pracy z symulatorem}
+\input{wyniki_symulacji2.tex}
+
+\section{Podsumowanie, ocena pracy z symulatorem i perspektywy dalszych prac}
+Zadania i cele projektu zostały zrealizowane, gdyż jako efekt końcowy zaimplementowano symulator grupy autonomicznych samochodów, które poruszają się w~obrębie stworzonego modelu dzielnicy miasta. Pojazdy zostały specjalnie zaprojektowane na~potrzeby projektu i~wyposażone w~odpowiednie czujniki. Strategia sterowania jest realizowana w~programie MATLAB, docelowy symulator w~systemie \mbox{V-REP}, a~wszystko to możliwe jest dzięki odpowiedniej komunikacji pomiędzy tymi programami. Do~zalet symulatora należy przede wszystkim jego intuicyjna wizualizacja, która sprawia, że symulacje mogą zostać zaprezentowane szerokiemu gronu odbiorców, a~ich ogląd nie wymaga specjalistycznej wiedzy. Ponadto zastosowane zostało sterowanie autonomiczne oraz w~uproszczeniu zachowano zasady ruchu drogowego według polskiego prawa.
 	
-	
-	
+Pracę z~symulatorem (program V-REP) możemy uznać za~dość sprawną ze~względu na~aspekty obliczeń fizycznych. Odwzorowane są one dobrze i~jednocześnie czas trwania symulacji był w~naszych warunkach (prosty model pojazdu) zbliżony do~rzeczywistego, co~jest niewątpliwą zaletą w~porównaniu z~innymi znanymi nam symulatorami (np. Gazebo). Z~drugiej strony przygotowanie modelu dzielnicy jest żmudne, a~ponadto brakuje takiej funkcjonalności, jak edycja kształtu obiektu. Co~więcej, nie ma niektórych podstawowych kształtów (np. trójkąta), nie mówiąc już o~pewnych bardziej złożonych funkcjach. Niemniej jednak istnieje sporo gotowych obiektów, które można zaadaptować na~potrzeby tworzonych modeli. 
+
+Stworzony symulator możemy potraktować jako produkt w~wersji bazowej, ponieważ zasadniczo algorytm sterowania działa, jednak możliwe jest dodanie nowych funkcjonalności czy też ulepszenie istniejących. W~szczególności warto byłoby rozważyć więcej rodzajów skrzyżowań i~lepiej odwzorować rzeczywiste sytuacje na~drogach. Ponadto sam pojazd może być rozwijany, chociażby poprzez dodanie różnego rodzaju czujników oraz wierniejsze (bliższe rzeczywistości) eksploatowanie istniejących. Wreszcie można by zastosować bardziej zaawansowane strategie sterowania. Na~przykład zamiast najprostszego wariantu z~wagami krawędzi w~grafie równymi długości dróg, warto zastosować choćby wariant z~wartościami wag odpowiadającymi minimalnemu czasowi przejazdu przy uwzględnieniu obserwacji otoczenia. 
+ 
 	
 		
 \end{document}
